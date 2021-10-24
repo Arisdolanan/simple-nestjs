@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
 import { RoleService } from './role.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 
-@Controller('role')
+@Controller('/api/v1/role')
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
@@ -13,21 +13,26 @@ export class RoleController {
   }
 
   @Get()
+  check(){
+    return this.roleService.check();
+  }
+
+  @Get('/all')
   findAll() {
     return this.roleService.findAll();
   }
 
-  @Get(':id')
+  @Get('/all/:id')
   findOne(@Param('id') id: string) {
     return this.roleService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put('/all/:id')
   update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
     return this.roleService.update(+id, updateRoleDto);
   }
 
-  @Delete(':id')
+  @Delete('/all/:id')
   remove(@Param('id') id: string) {
     return this.roleService.remove(+id);
   }
